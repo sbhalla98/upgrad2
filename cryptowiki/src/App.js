@@ -1,10 +1,6 @@
 import React,{Component} from 'react';
 import './App.css';
 import Form from './Form.js';
-import {Link} from 'react-router-dom';
-// import {BrowserRouter as Router,Route} from 'react-router-dom';
-// import  { Redirect } from 'react-router-dom'
-// import $ from 'jquery';
 
 class App extends Component {
 
@@ -27,7 +23,8 @@ class App extends Component {
       publicInterestScore:null,
       capRank : null,
       details : null,
-      homepage:null
+      homepage:null,
+      symbol:null
 
     }
     this.infoHandler=this.infoHandler.bind(this);
@@ -35,8 +32,6 @@ class App extends Component {
 
 async infoHandler(x){
   var id = x.toLowerCase();
-  console.log("lower case");
-  console.log(id);
   const coinsList = this.state.coinlist;
   var search;
   coinsList.forEach(function(value,index){
@@ -44,18 +39,14 @@ async infoHandler(x){
         search = value.id;
       }
   });
-  console.log(search);
   const res = await fetch("https://api.coingecko.com/api/v3/coins/"+search);
   const data = await res.json();
-  console.log(data);
-  this.setState({searchlabel : true,title: data.name,url : data.image.large,container:true,countryOrigin: data.country_origin,score: data.developer_score,communityScore: data.community_score,liquidityScore: data.liquidity_score,publicInterestScore: data.public_interest_score,cgRank: data.coingecko_rank,cgScore:data.coingecko_score,capRank: data.market_data.market_cap_rank, date : data.genesis_date, details: data.description.en,homepage: data.links.subreddit_url});
-  console.log(this.state.homepage);
+  this.setState({searchlabel : true,title: data.name,symbol: data.symbol,url : data.image.large,container:true,countryOrigin: data.country_origin,score: data.developer_score,communityScore: data.community_score,liquidityScore: data.liquidity_score,publicInterestScore: data.public_interest_score,cgRank: data.coingecko_rank,cgScore:data.coingecko_score,capRank: data.market_data.market_cap_rank, date : data.genesis_date, details: data.description.en,homepage: data.links.subreddit_url});
 }
 async componentDidMount(){
   const res = await fetch("https://api.coingecko.com/api/v3/coins/list");
   const data = await res.json();
   this.setState({ hideloader:true,coinlist : data});
-  console.log(this.state.coinlist);
 }
 
 render(){
@@ -74,13 +65,14 @@ render(){
   var marketCapRank= this.state.capRank;
   var details = this.state.details;
   var homepageurl = this.state.homepage;
+  var symbol = this.state.symbol;
     return (
     <div className="main" >
        
        <h1 className="header">Crypto Wiki</h1>
-        {this.state.hideloader ? <div><div><Form  infoHandler={this.infoHandler}/><div className="label" style={style}><h4>Search For a Coin</h4></div></div></div> : <div className="loader">Loading The Coin List.......</div>   }
+        {this.state.hideloader ? <div><div><Form  infoHandler={this.infoHandler}/><div className="label" style={style}><h4>Search For a Coin</h4></div></div></div> : <div className="loader">Loading The Coin List</div>   }
       <div className="component-container" style={style1}>
-    <a href={homepageurl}><div className="panelTitle" >{title}</div></a>
+    <a href={homepageurl}><div className="panelTitle" >{title} - {symbol}</div></a>
         <div className="panelLeft">
           <div className="coinImage">
             <img src ={url} style={{width : '100%'}} alt={title}/>

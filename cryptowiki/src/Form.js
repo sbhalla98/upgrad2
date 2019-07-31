@@ -15,7 +15,7 @@ class Form extends Component {
  render(){ 
    return (
     <div className="form-group">
-    <input type="text" className="form-control search" ref="coinName" placeholder="Enter the CryptoCurrency Name" />
+    <input type="text" className="form-control search" ref="coinName" placeholder="Enter the Crypto Currency Name" />
    <button type="submit" className="custom-btn green-btn" onClick={this.getInfoHandler}>Get Info About Coin</button>
    </div>
  
