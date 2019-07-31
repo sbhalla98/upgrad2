@@ -1,0 +1,55 @@
+.form-group{
+    position: relative;
+    left:20%;
+}
+
+.search {
+    width: 50%;
+    min-width: 30%;
+    padding: 10px 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    outline: none;
+    margin-top:0.4px;
+  }
+  .custom-btn{
+    padding-bottom: 10px 10px;
+    width:200px;
+    margin-left:0.5%;
+    color: white;
+    text-transform: uppercase;
+    border-radius:5px;
+    height: 30px;
+    font-size: 15px;
+  }
+   
+  .green-btn{
+      background-color:#15cf15;
+  }
+  @media screen and (max-width: 600px) {
+    .form-group{
+        width:100% !important ;
+        position: relative;
+        left:20px;
+        margin-right:20px;
+      }
+  }
+  @media screen and (max-width: 464px) {
+    .form-group{
+        width:100% !important ;
+        position: relative;
+        left:20px;
+        margin-right:20px;
+      }
+      .search{
+        width:90%;
+      }
+      .custom-btn{
+        margin-top:3%;
+        margin-left:20px;
+        width:80%;
+      }
+  }
