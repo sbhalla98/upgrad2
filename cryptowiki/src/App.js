@@ -31,7 +31,6 @@ class App extends Component {
 
     }
     this.infoHandler=this.infoHandler.bind(this);
-    // this.redirect = this.redirect.bind(this);
   }
 
 async infoHandler(x){
@@ -58,13 +57,7 @@ async componentDidMount(){
   this.setState({ hideloader:true,coinlist : data});
   console.log(this.state.coinlist);
 }
-// redirect(x){
-//   console.log("in redirect");
-//   console.log(x);
-//   return (
-//   <Router>render( <Redirect to={x}></Redirect> ) </Router>
-//   )
-// }
+
 render(){
   const style = this.state.searchlabel ? {display : 'none'}:{};
   const style1 = this.state.container ? {}:{display : 'none'};
@@ -84,10 +77,10 @@ render(){
     return (
     <div className="main" >
        
-        <h1 className="header">Crypto Wiki</h1>
+       <h1 className="header">Crypto Wiki</h1>
         {this.state.hideloader ? <div><div><Form  infoHandler={this.infoHandler}/><div className="label" style={style}><h4>Search For a Coin</h4></div></div></div> : <div className="loader">Loading The Coin List.......</div>   }
       <div className="component-container" style={style1}>
-     <div className="panelTitle" >{title}</div>
+    <a href={homepageurl}><div className="panelTitle" >{title}</div></a>
         <div className="panelLeft">
           <div className="coinImage">
             <img src ={url} style={{width : '100%'}} alt={title}/>
