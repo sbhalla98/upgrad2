@@ -25,7 +25,8 @@ class App extends Component {
       capRank : null,
       details : null,
       homepage:null,
-      symbol:null
+      symbol:null,
+      coinlistName:[]
     }
     this.infoHandler=this.infoHandler.bind(this);
   }
@@ -34,6 +35,17 @@ class App extends Component {
 // calling specifying api depending upon id
 async infoHandler(x){
   var id = x.toLowerCase();
+  var listhas=false;
+  this.state.coinlistName.forEach(function(value,index){
+    if(id === value){
+      listhas = true;
+    }
+  })
+  if(x === '' || listhas===false){
+    alert('Invalid Search....');
+  }
+  else{
+ 
   const coinsList = this.state.coinlist;
   var search;
   coinsList.forEach(function(value,index){
@@ -43,7 +55,9 @@ async infoHandler(x){
   });
   const res = await fetch("https://api.coingecko.com/api/v3/coins/"+search);
   const data = await res.json();
-  this.setState({searchlabel : true,title: data.name,symbol: data.symbol,url : data.image.large,container:true,countryOrigin: data.country_origin,score: data.developer_score,communityScore: data.community_score,liquidityScore: data.liquidity_score,publicInterestScore: data.public_interest_score,cgRank: data.coingecko_rank,cgScore:data.coingecko_score,capRank: data.market_data.market_cap_rank, date : data.genesis_date, details: data.description.en,homepage: data.links.subreddit_url});
+  console.log(data);
+  this.setState({searchlabel : true,title: data.name,symbol: data.symbol,url : data.image.large,container:true,container1:false,countryOrigin: data.country_origin,score: data.developer_score,communityScore: data.community_score,liquidityScore: data.liquidity_score,publicInterestScore: data.public_interest_score,cgRank: data.coingecko_rank,cgScore:data.coingecko_score,capRank: data.market_data.market_cap_rank, date : data.genesis_date, details: data.description.en,homepage: data.links.subreddit_url,alexaRank: data.public_interest_stats.alexa_rank});
+}
 }
 
 
@@ -52,7 +66,11 @@ async infoHandler(x){
 async componentDidMount(){
   const res = await fetch("https://api.coingecko.com/api/v3/coins/list");
   const data = await res.json();
-  this.setState({ hideloader:true,coinlist : data});
+  var coin = this.state.coinlistName;
+  data.map(function(value,item){
+    return coin.push(value.id);
+  });
+  this.setState({ hideloader:true,coinlist : data,coinlistName:coin});
 }
 
 render(){
