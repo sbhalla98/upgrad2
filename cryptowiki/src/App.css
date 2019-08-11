@@ -43,7 +43,7 @@ body{
   text-align: center;
 }
 .component-container{
-  background-color: rgb(38, 238, 171);
+  background-color: rgba(1, 139, 121, 0.726);
 }
 html, body {
   margin: 0 !important;
